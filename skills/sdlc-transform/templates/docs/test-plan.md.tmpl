@@ -1,0 +1,129 @@
+# Test Plan — {{PROJECT_NAME}}
+
+**Project:** {{PROJECT_NAME}}
+**Stack:** {{LANGUAGE}} / {{FRAMEWORK}}
+**Test runner:** `{{TEST_CMD}}`
+**Created:** {{GENERATED_AT}}
+**Maintained by:** QA Engineer (see `.claude/agents/qa.md`)
+
+---
+
+## 1. Scope
+
+This test plan covers the {{PROJECT_NAME}} application deployed to {{DEPLOY_TARGET}}.
+
+**In scope:**
+- All core user flows
+- API endpoints (if applicable)
+- Database interactions
+- Authentication and authorisation flows
+- Third-party integrations
+
+**Out of scope:**
+> TODO: List any explicitly excluded areas (e.g. third-party service internals, infrastructure provisioning)
+
+---
+
+## 2. Test strategy
+
+### 2.1 Positive tests (happy path)
+Verify that the system does what it should when given valid inputs and expected user behaviour.
+
+### 2.2 Negative tests (required for every feature)
+Verify robustness against invalid, unexpected, or adversarial inputs.
+
+Mandatory negative test categories per feature:
+| Category | Examples |
+|---|---|
+| Invalid input | null, empty string, wrong type, out-of-range value |
+| Missing required fields | submit form with required field absent |
+| Malformed requests | invalid JSON, wrong content-type, oversized payload |
+| Unexpected action sequence | submit before loading, double-submit, skip required step |
+| Boundary values | max length + 1, min value - 1, max count exceeded |
+
+### 2.3 Permission / security tests
+| Test | Expected result |
+|---|---|
+| Unauthenticated request to protected endpoint | 401 / redirect to login |
+| Authenticated request with insufficient role | 403 Forbidden |
+| User A accessing User B's data | 403 or 404 (no data leak) |
+| SQL injection in input fields | Input rejected / sanitised |
+| XSS payload in text input | Payload escaped, not executed |
+
+### 2.4 Edge-case tests
+- Empty collections (lists, search results, etc.)
+- Single-item collections
+- Maximum allowed values (string length, array size, numeric range)
+- Concurrent duplicate requests (race conditions)
+- Session expiry mid-flow
+
+### 2.5 Stress / performance tests
+| Scenario | Baseline | Breaking point | Expected degradation |
+|---|---|---|---|
+| Normal load | __ req/sec | __ req/sec | __ |
+| Peak load (10× normal) | | | |
+| Sustained load (60 min) | | | |
+| Database connection pool exhaustion | | | |
+
+---
+
+## 3. Test environments
+
+| Environment | Purpose | Data |
+|---|---|---|
+| Local | Developer testing | Seed / mock data |
+| Staging | Pre-release validation | Anonymised production copy |
+| Production | Smoke tests post-deploy only | Live data |
+
+---
+
+## 4. Test cases
+
+Add test cases here as features are built. Use this format:
+
+```
+### TC-NNN: <Title>
+**Feature:** <feature name>
+**Type:** Positive / Negative / Edge / Security / Performance
+**Precondition:** <system state before test>
+**Steps:**
+  1. <step>
+  2. <step>
+**Expected result:** <what should happen>
+**Actual result:** <filled in during execution>
+**Status:** Pass / Fail / Blocked
+```
+
+---
+
+## 5. Defect log
+
+Defects are tracked in `.sdlc/defect-log.md`.
+
+Severity definitions:
+| Severity | Criteria | Release impact |
+|---|---|---|
+| Critical | Data loss, security breach, complete feature failure | Block release |
+| High | Major feature broken, no workaround | Block release |
+| Medium | Feature impaired, workaround exists | Fix next sprint |
+| Low | Minor UI / cosmetic | Fix when convenient |
+
+---
+
+## 6. Release sign-off criteria
+
+Before production deployment:
+- [ ] All Critical and High test cases pass
+- [ ] No open Critical or High defects
+- [ ] Negative test cases executed for all features in scope
+- [ ] Regression suite passes: `{{TEST_CMD}}`
+- [ ] Performance baseline within acceptable range
+- [ ] Security spot-check completed
+
+---
+
+## 7. Revision history
+
+| Date | Change | Author |
+|---|---|---|
+| {{GENERATED_AT}} | Initial test plan created by sdlc:transform | |

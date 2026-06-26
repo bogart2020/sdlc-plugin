@@ -1,0 +1,54 @@
+name: SDLC CI — {{PROJECT_NAME}}
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+jobs:
+  quality:
+    name: Lint, Test & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # TODO: Add your language setup step here
+      # Examples:
+      #   Go:   uses: actions/setup-go@v5 with { go-version: '1.22' }
+      #   Rust: uses: actions-rs/toolchain@v1 with { toolchain: stable }
+      #   Java: uses: actions/setup-java@v4 with { java-version: '21', distribution: 'temurin' }
+
+      - name: Install dependencies
+        run: {{INSTALL_CMD}}
+
+      # The orchestrator removes the Lint and/or Build steps if the
+      # corresponding command is "none". Never leave a step that runs `none`.
+      - name: Lint
+        run: {{LINT_CMD}}
+
+      - name: Test
+        run: {{TEST_CMD}}
+
+      - name: Build
+        run: {{BUILD_CMD}}
+
+  security:
+    name: Security scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Dependency audit
+        run: {{AUDIT_CMD}}
+        continue-on-error: false
+
+      - name: Secret scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          extra_args: --only-verified

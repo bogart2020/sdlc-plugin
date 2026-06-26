@@ -1,0 +1,96 @@
+---
+description: SDLC deployment phase for {{PROJECT_NAME}}. Pre-deploy checklist, staged rollout (staging → production), post-deploy monitoring, and deployment record. Use before every production deployment.
+---
+
+# SDLC — Deployment Phase
+
+**Project:** {{PROJECT_NAME}}
+**Deploy target:** {{DEPLOY_TARGET}}
+**Environments:** {{ENVIRONMENTS}}
+**Test:** `{{TEST_CMD}}` | **Build:** `{{BUILD_CMD}}`
+
+## Pre-deploy checklist
+
+Complete every item before deploying to any non-local environment.
+
+### Quality gates
+- [ ] `{{TEST_CMD}}` passes (all tests green)
+- [ ] `{{LINT_CMD}}` passes (no lint errors)
+- [ ] `{{BUILD_CMD}}` succeeds
+- [ ] No open critical or high defects (see `.sdlc/defect-log.md`)
+
+### Security gates
+- [ ] Secret scan on the changes about to ship (safe on first commit; checks staged + last commit):
+      `git diff --staged | grep -iE 'api[_-]?key|secret|password|token|private[_-]?key' || echo "clean (staged)"`
+      and review recent history with `git log --oneline -10`
+- [ ] Dependency audit run (npm audit / pip-audit / cargo audit / etc.)
+- [ ] No hardcoded URLs, credentials, or environment-specific values in code
+
+### Change review
+- [ ] PR / change reviewed and approved
+- [ ] Database migrations reviewed if schema changed — are they reversible?
+- [ ] Environment variable changes documented and provisioned in target environment
+- [ ] Breaking API changes communicated to consumers
+
+### Rollback plan
+- [ ] Rollback command / procedure documented: `<specify rollback steps>`
+- [ ] Database rollback plan defined if schema changed
+- [ ] Previous stable version known: `<version or git SHA>`
+
+## Deployment — Staging
+
+Deploy to staging first. Always.
+
+```bash
+# Deploy to staging
+<staging deploy command — fill in from project's actual deployment procedure>
+```
+
+Post-staging smoke tests:
+- [ ] Application starts without errors
+- [ ] Health check / readiness endpoint responds
+- [ ] Core user flow completes end-to-end
+- [ ] No unexpected errors in logs
+
+**Do not proceed to production if staging fails.**
+
+## Deployment — Production
+
+After staging is confirmed:
+
+```bash
+# Deploy to production
+<production deploy command — fill in from project's actual deployment procedure>
+```
+
+Post-production verification (monitor for ≥ 10 minutes):
+- [ ] Application starts without errors
+- [ ] Error rate within normal baseline (compare to last 24h)
+- [ ] Latency within normal baseline
+- [ ] Core user flow verified
+- [ ] No alerts fired
+
+## If something goes wrong
+
+1. **Assess severity.** Is it a critical outage or a partial degradation?
+2. **Rollback immediately** if critical and rollback is safe:
+   ```bash
+   # Rollback command — fill in from project's deployment procedure
+   ```
+3. **Preserve evidence.** Export logs, error traces, and metrics from the incident window.
+4. **Communicate.** Notify stakeholders of the incident and ETA for resolution.
+5. **Post-incident.** Write a brief post-mortem and add to `.sdlc/kaizen-retro.md`.
+
+## Deployment record
+
+Append to `.sdlc/deployments.md` (create if absent):
+
+```
+## <YYYY-MM-DD HH:MM> — <environment>
+
+**Version / commit:** <git SHA or version>
+**Deployed by:** <name>
+**Changes:** <link to PR or brief description>
+**Status:** Success / Partial / Rolled back
+**Notes:** <anything notable>
+```

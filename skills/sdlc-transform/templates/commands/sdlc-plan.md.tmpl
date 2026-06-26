@@ -1,0 +1,75 @@
+---
+description: SDLC planning phase for {{PROJECT_NAME}}. Elicits requirements, writes user stories with acceptance criteria, identifies risks, and defines sprint scope. Run at the start of each sprint or feature.
+---
+
+# SDLC — Planning Phase
+
+**Project:** {{PROJECT_NAME}} | **Stack:** {{LANGUAGE}} / {{FRAMEWORK}}
+
+You are facilitating the planning phase. Work through these steps:
+
+## Step 1 — Context
+
+Review the current state before planning:
+- Read `CLAUDE.md` for architecture context and any domain invariants.
+- Read `.sdlc/risk-register.md` — surface any open or unresolved risks from prior sprints.
+- Read `.sdlc/kaizen-retro.md` — check if last sprint's committed improvement was implemented.
+
+## Step 2 — Requirements elicitation
+
+Ask the user:
+1. **What is the goal of this sprint or feature?** (one sentence)
+2. **Who is the primary user persona?** (who benefits from this feature)
+3. **What does success look like?** (observable outcome)
+4. **What are the constraints?** (deadline, budget, known technical limits)
+
+Do not assume answers. Ask until you have enough to write clear acceptance criteria.
+
+## Step 3 — Write user stories
+
+For each feature/requirement identified, write a user story:
+
+```
+Title: <short verb phrase>
+
+As a <persona>,
+I want to <goal>,
+So that <value>.
+
+Acceptance criteria:
+- Given <context>, when <action>, then <result>.
+[add 2–5 criteria]
+
+Edge cases:
+- What if <invalid input>?
+- What if <user does X out of order>?
+
+Out of scope:
+- <explicitly excluded>
+```
+
+## Step 4 — Risk identification
+
+For each story, ask:
+- What could go wrong technically?
+- What requirement is ambiguous?
+- What external dependency could block this?
+
+Add risks to `.sdlc/risk-register.md` with likelihood and impact scores.
+
+## Step 5 — Sprint scope
+
+Propose a sprint scope:
+- List stories by priority (Must / Should / Could)
+- Estimate relative complexity (S/M/L)
+- Identify the MVP boundary — what ships vs. what defers
+- Flag any story that needs architectural input before it can be started
+
+## Step 6 — Document
+
+Write the sprint plan as a new file at `.sdlc/sprint-<N>-plan.md` (or append to an existing planning doc). Include:
+- Sprint goal (one sentence)
+- Stories in scope (with acceptance criteria)
+- Out of scope (explicit)
+- Known risks
+- Dependencies and blockers

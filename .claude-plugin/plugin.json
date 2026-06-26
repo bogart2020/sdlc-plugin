@@ -1,0 +1,13 @@
+{
+  "name": "sdlc",
+  "description": "Retrofits a full SDLC structure onto any existing project: tuned CLAUDE.md, role subagents, phase commands, CI/CD pipeline, and planning docs — non-destructively.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jerick Madrileno",
+    "email": "madrilenojerick@gmail.com"
+  },
+  "homepage": "https://github.com/jerickmadrileno/sdlc-plugin",
+  "repository": "https://github.com/jerickmadrileno/sdlc-plugin",
+  "license": "MIT",
+  "keywords": ["sdlc", "agile", "devops", "qa", "architecture", "scaffold"]
+}

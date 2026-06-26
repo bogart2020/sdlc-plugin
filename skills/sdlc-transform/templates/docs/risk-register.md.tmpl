@@ -1,0 +1,63 @@
+# Risk Register — {{PROJECT_NAME}}
+
+**Project:** {{PROJECT_NAME}}
+**Stack:** {{LANGUAGE}} / {{FRAMEWORK}}
+**Created:** {{GENERATED_AT}}
+**Reviewed:** Each sprint planning session (`/sdlc-plan`)
+
+---
+
+## Scoring
+
+**Likelihood:** 1 (very unlikely) → 5 (very likely)
+**Impact:** 1 (minor inconvenience) → 5 (project-threatening)
+**Priority = Likelihood × Impact** (1–25)
+
+| Score | Action |
+|---|---|
+| 20–25 | Mitigate now — this is critical |
+| 12–19 | Plan mitigation this sprint |
+| 6–11 | Monitor; add to next sprint if score rises |
+| 1–5 | Accept; log and revisit quarterly |
+
+---
+
+## Active Risks
+
+| ID | Risk | Category | Likelihood | Impact | Score | Mitigation | Owner | Status |
+|---|---|---|---|---|---|---|---|---|
+| R-001 | Requirements change mid-sprint | Requirements | 3 | 3 | 9 | Weekly stakeholder sync; frozen scope per sprint | PO | 🟡 Open |
+| R-002 | No rollback plan for production | Operations | 2 | 5 | 10 | Define rollback procedure before first deployment | DevOps | 🟡 Open |
+| R-003 | Insufficient test coverage | Quality | 3 | 4 | 12 | Enforce test gate in CI; QA reviews before merge | QA | 🟡 Open |
+| R-004 | Secret accidentally committed | Security | 2 | 5 | 10 | Pre-commit hook + CI secret scan | DevOps | 🟡 Open |
+| R-005 | Key dependency unavailable | Technical | 2 | 4 | 8 | Identify alternatives; document fallback | Architect | 🟡 Open |
+
+> Replace / extend this starter set in your first `/sdlc-premortem` session.
+
+---
+
+## Risk categories
+
+- **Requirements** — unclear scope, changing requirements, missing acceptance criteria
+- **Technical** — complexity underestimated, design flaw, unknown integration, performance
+- **Quality** — insufficient testing, test debt, QA skipped
+- **Security** — data exposure, broken auth, dependency vulnerability, secrets leak
+- **Operations** — deployment failure, no monitoring, no rollback, infra drift
+- **Team** — knowledge silo, key person absent, blocked dependency, scope creep
+- **Compliance** — {{COMPLIANCE}} requirements not met
+
+---
+
+## Resolved Risks
+
+| ID | Risk | Resolution | Date |
+|---|---|---|---|
+| | | | |
+
+---
+
+## Review cadence
+
+- **Sprint planning:** review all open risks; close any resolved; add new ones from pre-mortem
+- **Weekly:** check scores of risks rated 12+ — are they getting worse?
+- **Post-incident:** add any risks that materialised as incidents so the pattern is documented

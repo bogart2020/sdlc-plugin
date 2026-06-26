@@ -1,0 +1,65 @@
+name: SDLC CI — {{PROJECT_NAME}}
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+jobs:
+  quality:
+    name: Lint, Test & Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ['3.12']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: {{INSTALL_CMD}}
+
+      # The orchestrator removes the Lint and/or Build steps below if the
+      # corresponding command is "none". Do not leave a step that runs `none`.
+      - name: Lint / format check
+        run: {{LINT_CMD}}
+
+      - name: Test
+        run: {{TEST_CMD}}
+
+      - name: Build
+        run: {{BUILD_CMD}}
+
+  security:
+    name: Security scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: {{INSTALL_CMD}}
+
+      - name: Dependency audit
+        run: {{AUDIT_CMD}}
+        continue-on-error: false
+
+      - name: Secret scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          extra_args: --only-verified

@@ -1,0 +1,27 @@
+{
+  "name": "sdlc-toolkit",
+  "description": "SDLC scaffold plugin that retrofits full software-delivery structure onto existing projects.",
+  "owner": {
+    "name": "Jerick Madrileno",
+    "email": "madrilenojerick@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "sdlc",
+      "displayName": "SDLC Transform",
+      "source": "./",
+      "description": "Retrofits SDLC structure onto an existing project non-destructively. Generates tuned CLAUDE.md, role subagents, phase commands, CI/CD, and planning docs.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Jerick Madrileno",
+        "email": "madrilenojerick@gmail.com"
+      },
+      "homepage": "https://github.com/jerickmadrileno/sdlc-plugin",
+      "repository": "https://github.com/jerickmadrileno/sdlc-plugin",
+      "license": "MIT",
+      "keywords": ["sdlc", "agile", "devops", "qa", "scaffold", "claude-code"],
+      "category": "developer-tools",
+      "tags": ["sdlc", "agile", "scaffold", "devops", "testing", "architecture"]
+    }
+  ]
+}

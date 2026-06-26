@@ -1,0 +1,67 @@
+# {{PROJECT_NAME}}
+
+{{PRODUCT_GOAL}}
+
+<!--
+  This file has two zones:
+  • Everything OUTSIDE the SDLC:BEGIN/END markers is yours — edit freely.
+    /sdlc:update will never touch it.
+  • Everything INSIDE the markers is auto-generated from your stack and is
+    refreshed by /sdlc:update. Do not hand-edit inside the markers.
+-->
+
+## Architecture Overview
+
+> TODO: Add a brief description of the system — key modules, data flow, external APIs/services, storage.
+
+## Domain Invariants
+
+> TODO: List business rules that must never be violated by code changes (e.g. "a user can only belong to one tenant", "prices are always stored in cents").
+
+## Non-Obvious Conventions
+
+> TODO: Add gotchas, naming rules, import conventions, or anything that would surprise a new contributor.
+
+## Links
+
+> TODO: Add links to design docs, ADRs, runbooks, dashboards, issue tracker, Figma, etc.
+
+<!-- SDLC:BEGIN — managed by sdlc:transform, do not edit this block manually (refreshed by /sdlc:update) -->
+> Generated: {{GENERATED_AT}} by sdlc:transform v0.1.0
+
+## Stack
+
+| | |
+|---|---|
+| Language | {{LANGUAGE}} |
+| Framework | {{FRAMEWORK}} |
+| Package manager | {{PACKAGE_MANAGER}} |
+| Deploy target | {{DEPLOY_TARGET}} |
+| Environments | {{ENVIRONMENTS}} |
+| Compliance | {{COMPLIANCE}} |
+
+## Commands
+
+| Purpose | Command |
+|---|---|
+| Run tests | `{{TEST_CMD}}` |
+| Lint / format | `{{LINT_CMD}}` |
+| Build | `{{BUILD_CMD}}` |
+
+## SDLC Roles (active for this project)
+
+See `.claude/agents/` for role subagents. Active roles:
+{{ACTIVE_ROLES_LIST}}
+
+## SDLC Phase Commands
+
+| Phase | Command | Purpose |
+|---|---|---|
+| Planning | `/sdlc-plan` | Elicit requirements, write user stories, define sprint scope |
+| Design | `/sdlc-design` | HLD/LLD, ADRs, UI specs |
+| Implementation | `/sdlc-implement` | Guided coding with confidence gate |
+| Testing | `/sdlc-test` | Run tests, write cases, log defects |
+| Deployment | `/sdlc-deploy` | Pre-deploy checklist and deployment guide |
+| Pre-mortem | `/sdlc-premortem` | Risk imagination before a sprint/feature |
+| Retrospective | `/sdlc-retro` | Kaizen-style sprint retrospective |
+<!-- SDLC:END -->

@@ -1,0 +1,78 @@
+---
+description: SDLC implementation phase for {{PROJECT_NAME}}. Guided coding with the confidence gate, test-first discipline, and security checklist. Use when implementing a designed feature.
+---
+
+# SDLC — Implementation Phase
+
+**Project:** {{PROJECT_NAME}}
+**Stack:** {{LANGUAGE}} / {{FRAMEWORK}}
+**Test:** `{{TEST_CMD}}` | **Lint:** `{{LINT_CMD}}` | **Build:** `{{BUILD_CMD}}`
+
+## Pre-implementation checklist
+
+Before writing any code:
+- [ ] Design is confirmed (HLD/LLD exists or feature is trivially scoped)
+- [ ] Acceptance criteria are clear
+- [ ] Relevant existing code has been read
+- [ ] Confidence ≥ 85% on the approach
+
+If any item is unchecked, address it before proceeding.
+
+## Confidence gate
+
+Estimate your confidence before coding:
+
+| Dimension | Status |
+|---|---|
+| Requirement clarity | __ % |
+| Relevant files inspected | __ % |
+| Affected code flow understood | __ % |
+| Data flow understood | __ % |
+| Security impact understood | __ % |
+| Test path clear | __ % |
+| Release risk understood | __ % |
+
+**≥ 95%:** proceed.
+**85–94%:** proceed for low-risk changes; state assumptions explicitly.
+**70–84%:** inspect more or ask before writing.
+**< 70%:** stop. Summarise knowns, unknowns, and questions. Do not code.
+
+Never assume on: user-visible behaviour, data integrity, auth/authorization, secrets, schema changes, destructive actions.
+
+## Implementation rules
+
+1. **Read the target files before editing** — understand existing patterns, naming, error handling.
+2. **Match the codebase** — naming conventions, import style, module structure, comment density.
+3. **Write tests alongside the feature** — do not defer testing.
+4. **Smallest safe change** — prefer targeted patches over rewrites.
+5. **No new dependencies without justification** — prefer existing libraries.
+6. **Never commit secrets** — check `{{LINT_CMD}}` and git diff before staging.
+
+## During implementation
+
+For each logical unit of work:
+1. Read the relevant existing code.
+2. Write the implementation.
+3. Write the tests (unit + integration where applicable).
+4. Run `{{TEST_CMD}}` — all tests must pass.
+5. Run `{{LINT_CMD}}` — no lint errors.
+6. Review the diff before staging: `git diff` — confirm scope is intentional.
+
+## Security checklist (check before every commit)
+
+- [ ] No secrets in code or diff
+- [ ] All user input validated and sanitised server-side
+- [ ] Auth/authorisation enforced (never trust client-provided role or identity)
+- [ ] No SQL/NoSQL injection vectors (use parameterised queries)
+- [ ] No XSS vectors (escape output in templates)
+- [ ] Error messages don't expose internals to clients
+
+## Done definition
+
+A task is done when:
+- [ ] Feature implements all acceptance criteria
+- [ ] `{{TEST_CMD}}` passes
+- [ ] `{{LINT_CMD}}` passes
+- [ ] No critical or high security issues
+- [ ] Code reviewed (or self-reviewed against the checklist above)
+- [ ] PR description lists: what changed, files changed, test results, remaining risk

@@ -1,0 +1,91 @@
+---
+description: SDLC testing phase for {{PROJECT_NAME}}. Runs tests, identifies coverage gaps, writes missing negative/edge-case tests, logs defects, and produces a test summary. Use before any release or major merge.
+---
+
+# SDLC — Testing Phase
+
+**Project:** {{PROJECT_NAME}} | **Stack:** {{LANGUAGE}} / {{FRAMEWORK}}
+**Test command:** `{{TEST_CMD}}`
+
+## Step 1 — Run the test suite
+
+```bash
+{{TEST_CMD}}
+```
+
+Report: total tests, passed, failed, skipped. If tests fail, stop and triage before continuing.
+
+## Step 2 — Coverage analysis
+
+Review coverage (if available). Identify untested code paths. Focus on:
+- Business logic and domain rules
+- Error handling branches
+- Auth/authorisation checks
+- Edge cases at input boundaries
+
+## Step 3 — Test gap audit
+
+For the feature or code area under review, verify these test types exist:
+
+### Positive tests (happy path)
+- [ ] Valid input → correct output
+- [ ] Full user flow completes successfully
+
+### Negative tests (required for every feature)
+- [ ] Invalid input: null, empty, wrong type, too long, negative numbers, special characters
+- [ ] Missing required fields
+- [ ] Malformed requests (if API)
+- [ ] Duplicate/idempotency violations
+
+### Permission / auth tests
+- [ ] Unauthenticated request returns 401 (or equivalent)
+- [ ] Insufficient-role request returns 403 (or equivalent)
+- [ ] User cannot access another user's data
+
+### Boundary / edge-case tests
+- [ ] Maximum allowed value
+- [ ] Minimum allowed value
+- [ ] Empty collection
+- [ ] Single-item collection
+- [ ] Concurrent duplicate requests (if applicable)
+
+### Stress / load scenario (document, automate if tooling available)
+- [ ] Expected load: __ req/sec, __ concurrent users
+- [ ] Breaking point: __ req/sec before degradation
+- [ ] Degradation behaviour: <describe expected graceful failure mode>
+
+## Step 4 — Write missing tests
+
+For each gap found in Step 3, write the missing test case using the project's test runner (`{{TEST_CMD}}`). Follow existing test file patterns exactly.
+
+## Step 5 — Defect logging
+
+For every defect found during testing:
+
+```
+ID: BUG-<N>
+Title: <short description>
+Severity: Critical / High / Medium / Low
+Reproduction steps:
+  1. <step>
+  2. <step>
+Expected: <what should happen>
+Actual: <what happens>
+Environment: <version, OS, browser if relevant>
+```
+
+Add to `.sdlc/defect-log.md` (create if absent).
+
+## Step 6 — Test plan update
+
+Update `.sdlc/test-plan.md` with:
+- New test cases added this cycle
+- Any test cases that were removed or changed
+- Coverage delta (before vs. after)
+
+## Step 7 — Release recommendation
+
+Based on results:
+- **Pass:** all critical/high tests pass, no open critical/high defects → ✅ Ready for deployment phase
+- **Conditional pass:** medium defects only, workarounds exist → ⚠️ Document and proceed with PM approval
+- **Fail:** any critical/high defect open → 🛑 Block release, return to implementation

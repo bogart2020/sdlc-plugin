@@ -1,0 +1,105 @@
+---
+description: SDLC design phase for {{PROJECT_NAME}}. Produces HLD, LLD, and ADRs before any implementation. Use at the start of a feature that involves architectural decisions or new components.
+---
+
+# SDLC — Design Phase
+
+**Project:** {{PROJECT_NAME}} | **Stack:** {{LANGUAGE}} / {{FRAMEWORK}}
+
+You are in the design phase. Produce design artifacts before any code is written.
+
+## Step 1 — Understand the feature
+
+Read:
+- The sprint plan or user story that prompted this design
+- `CLAUDE.md` — architecture overview and domain invariants
+- Any existing design docs in `.sdlc/` relevant to this area
+
+Confirm you understand:
+- What the feature does
+- Who uses it and in what context
+- What constraints apply (performance, security, compliance)
+
+If the feature spans multiple system components or introduces a new external dependency, this warrants both an HLD and an LLD.
+
+## Step 2 — High-Level Design (HLD)
+
+Write a concise HLD covering:
+
+### System context
+Which components are involved? Draw an ASCII diagram showing the relationships:
+```
+[Browser] → [API Server] → [Database]
+                        → [External Service]
+```
+
+### Data flow
+For each user action: what data flows, in what direction, through which components?
+
+### External dependencies
+List any new third-party services, APIs, or libraries this feature introduces. For each: what is it, why this choice, what are the risks?
+
+### Deployment impact
+Does this feature require infrastructure changes, new environment variables, or schema migrations?
+
+## Step 3 — Low-Level Design (LLD)
+
+For each component touched, specify:
+
+### API contracts
+```
+POST /api/<resource>
+Request: { field: type, ... }
+Response: { field: type, ... }
+Errors: 400 (validation), 401 (unauth), 409 (conflict)
+```
+
+### Data model
+```
+Table / Schema: <name>
+  id: uuid PK
+  field: type NOT NULL
+  created_at: timestamp
+```
+
+### Key algorithms / sequences
+Use a numbered sequence or ASCII sequence diagram for complex flows.
+
+## Step 4 — Architecture Decision Record (ADR)
+
+If this design involves a significant choice (new library, pattern, data model, auth approach), record it:
+
+**File:** `.sdlc/adr-NNN-<title>.md`
+
+```markdown
+# ADR-NNN: <Title>
+
+**Date:** <date>
+**Status:** Proposed / Accepted / Deprecated
+
+## Context
+<What problem are we solving?>
+
+## Options considered
+1. <Option A> — pros / cons
+2. <Option B> — pros / cons
+
+## Decision
+<What we decided and why>
+
+## Consequences
+<What changes, what risks this introduces>
+```
+
+## Step 5 — Security review
+
+Before finalising the design, check:
+- [ ] Are all inputs validated at the server?
+- [ ] Is authorisation enforced at every endpoint?
+- [ ] Are secrets managed correctly (no hardcoding)?
+- [ ] Does the design expose any new attack surface?
+- [ ] Are there any compliance implications ({{COMPLIANCE}})?
+
+## Step 6 — Confirm before implementing
+
+Present the design to the user. Get explicit confirmation before writing any implementation code. If the design requires architect sign-off, flag that now.

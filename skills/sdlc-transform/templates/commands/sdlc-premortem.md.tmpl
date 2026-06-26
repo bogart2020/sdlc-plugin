@@ -1,0 +1,85 @@
+---
+description: Run a pre-mortem for {{PROJECT_NAME}}. Imagine failure before it happens to surface risks and plan mitigations. Run at the start of any significant sprint or feature.
+---
+
+# SDLC — Pre-Mortem
+
+**Project:** {{PROJECT_NAME}} | **Stack:** {{LANGUAGE}} / {{FRAMEWORK}}
+
+A pre-mortem imagines the future has already gone badly wrong — then works backwards to understand why. It surfaces risks that optimism bias would otherwise hide.
+
+## Setup
+
+Ask: "What sprint, feature, or milestone are we about to start?"
+
+Then say: *"It is now 3 months from now. The thing we were about to build has failed — badly. Users are angry, the team is stressed, the business is hurt. Let's figure out what went wrong."*
+
+## Step 1 — Generate failure modes
+
+Brainstorm failures across each axis. Aim for 3–5 per axis. Be specific and honest.
+
+### Requirements failures
+- Scope was misunderstood → we built the wrong thing
+- Acceptance criteria were ambiguous → delivered but product owner rejected
+- Stakeholders changed their minds mid-sprint → rework killed velocity
+- A critical edge case was never discussed → shipped with a fundamental gap
+
+### Technical failures
+- Underestimated complexity → half-finished at deadline
+- A third-party API changed or went down → feature blocked
+- Design flaw discovered late → required a rewrite
+- Dependency introduced a breaking change or vulnerability
+
+### Quality failures
+- Shipped with undetected critical bug → rollback required
+- No negative tests → edge cases crashed in production
+- Test suite was slow / flaky → developers stopped running it
+- QA was skipped "just this once" → became permanent
+
+### Security failures
+- Secret committed to repo → credential rotation required
+- Auth bypass found in production → data exposure incident
+- Dependency vulnerability not caught → exploited before patched
+- Compliance requirement missed → audit failure
+
+### Operations failures
+- Deployment process failed → hours of downtime
+- No rollback plan → forced to push a hotfix under pressure
+- Missing monitoring → failure went undetected for hours
+- Configuration mismatch between staging and production
+
+### Team failures
+- Key engineer became unavailable → knowledge silo
+- Blocked on external team → sprint goal missed
+- Communication breakdown → duplicate work / rework
+- Scope creep accepted mid-sprint → nothing finished
+
+## Step 2 — Score each risk
+
+For each failure mode identified, assign:
+- **Likelihood:** 1 (very unlikely) → 5 (very likely)
+- **Impact:** 1 (minor) → 5 (catastrophic)
+- **Priority score:** likelihood × impact (1–25)
+
+## Step 3 — Mitigate the top 3
+
+For the three highest-scoring risks:
+1. **Risk:** <description>
+   **Mitigation:** <specific action before the sprint starts>
+   **Owner:** <who implements this>
+
+2. **Risk:** <description>
+   **Mitigation:** <specific action>
+   **Owner:** <who>
+
+3. **Risk:** <description>
+   **Mitigation:** <specific action>
+   **Owner:** <who>
+
+## Step 4 — Record results
+
+Update two files:
+
+**`.sdlc/premortem.md`** — append this pre-mortem session with date, feature, risks, and mitigations.
+
+**`.sdlc/risk-register.md`** — add new risks with their scores. The risk register is the living log reviewed at each planning session.

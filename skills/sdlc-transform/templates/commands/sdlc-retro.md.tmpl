@@ -1,0 +1,117 @@
+---
+description: Run a Kaizen-style sprint retrospective for {{PROJECT_NAME}}. Celebrate wins, surface pain points with root-cause analysis, and commit to one small improvement. Run after every sprint or release.
+---
+
+# SDLC — Sprint Retrospective (Kaizen)
+
+**Project:** {{PROJECT_NAME}} | **Stack:** {{LANGUAGE}} / {{FRAMEWORK}}
+
+A Kaizen retrospective finds one real improvement per cycle. Small and implemented beats ambitious and deferred.
+
+## Ground rules
+
+- **Blameless.** Focus on systems, processes, and tooling — not individuals.
+- **Specific.** "The tests were slow" is actionable. "Communication was bad" is not.
+- **One improvement per retro.** Commit to it. Follow up next retro.
+
+---
+
+## Step 1 — Check last retro's commitment
+
+Read `.sdlc/kaizen-retro.md`. What was the improvement committed in the last retro?
+
+Ask: "Was it implemented? If not, why not?"
+
+If not implemented: either carry it forward with a specific blocker identified, or deliberately decide to abandon it (and say why).
+
+---
+
+## Step 2 — What went well?
+
+Ask the team (or user) to list things that worked well this sprint. Capture them.
+
+These are the behaviours and practices to reinforce and protect — not to take for granted.
+
+---
+
+## Step 3 — What was painful?
+
+Ask for honest, specific pain points. Common sources:
+- Development environment issues
+- Unclear requirements or late-changing scope
+- Slow tests or CI pipeline
+- Toil / manual processes that could be automated
+- Communication gaps or waiting for decisions
+- Bugs found too late
+- Deployment friction
+
+Capture everything. Don't filter yet.
+
+---
+
+## Step 4 — Root cause (5 Whys)
+
+Pick the **most painful item** from Step 3. Apply the 5 Whys:
+
+```
+Problem: <specific pain point>
+
+Why 1: <why did this happen?>
+Why 2: <why did that happen?>
+Why 3: <why did that happen?>
+Why 4: <why did that happen?>
+Why 5: <what is the root cause?>
+```
+
+The root cause is usually a process gap, a missing tool, a knowledge silo, or an unclear ownership. Address that — not the symptom.
+
+---
+
+## Step 5 — One improvement
+
+State the improvement clearly:
+
+```
+Improvement: <what we will do>
+Owner:       <who is responsible>
+Deadline:    <by when — specific date>
+Success:     <how we know it's done>
+```
+
+Small and specific wins. Examples of good commitments:
+- "Add a pre-commit hook to catch secrets by Friday"
+- "Write negative tests for the auth module before next sprint"
+- "Document the staging deployment procedure in CLAUDE.md this week"
+- "Set up a Slack alert for production error spikes by end of sprint"
+
+---
+
+## Step 6 — Record
+
+Append to `.sdlc/kaizen-retro.md`:
+
+```markdown
+## <YYYY-MM-DD> Retrospective
+
+**Sprint / Release:** <name or number>
+
+### What went well
+- <item>
+- <item>
+
+### Pain points
+- <item>
+- <item>
+
+### Root cause (5 Whys)
+**Problem:** <selected item>
+Why 1: ... Why 2: ... Why 3: ... Why 4: ... Why 5 (root): ...
+
+### Committed improvement
+**What:** <improvement>
+**Owner:** <name>
+**Deadline:** <date>
+**Status:** ⏳ In progress
+```
+
+Update the status field in the next retro (✅ Done / ❌ Abandoned + reason).
