@@ -43,22 +43,25 @@ All artifacts are **committed with your repo** and owned by your team.
 
 ## Install
 
-### Option A — Local (development / personal use)
+### Option A — Marketplace (recommended)
+
+```
+/plugin marketplace add bogart2020/sdlc-plugin
+/plugin install sdlc@sdlc-toolkit
+```
+
+### Option B — Local (development / personal use)
+
+Run Claude Code with the cloned repo as a plugin directory:
 
 ```bash
 claude --plugin-dir /path/to/sdlc-plugin
 ```
 
-Or install it to your skills directory for auto-load:
-
-```bash
-claude plugin init sdlc    # then copy this plugin's contents there
-```
-
-### Option B — Marketplace (team / community)
+Or add the local folder as a marketplace and install from it:
 
 ```
-/plugin marketplace add <your-github-username>/sdlc-plugin
+/plugin marketplace add /path/to/sdlc-plugin
 /plugin install sdlc@sdlc-toolkit
 ```
 

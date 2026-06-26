@@ -6,8 +6,8 @@
     "name": "Jerick Madrileno",
     "email": "madrilenojerick@gmail.com"
   },
-  "homepage": "https://github.com/jerickmadrileno/sdlc-plugin",
-  "repository": "https://github.com/jerickmadrileno/sdlc-plugin",
+  "homepage": "https://github.com/bogart2020/sdlc-plugin",
+  "repository": "https://github.com/bogart2020/sdlc-plugin",
   "license": "MIT",
   "keywords": ["sdlc", "agile", "devops", "qa", "architecture", "scaffold"]
 }
